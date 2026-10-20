@@ -1,0 +1,18 @@
+[
+  {
+    "role": "user",
+    "content": "hello"
+  },
+  {
+    "role": "assistant",
+    "content": "echo: hello"
+  },
+  {
+    "role": "user",
+    "content": "www"
+  },
+  {
+    "role": "assistant",
+    "content": "echo: www"
+  }
+]
