@@ -1,2 +1,2 @@
-def scip(A,G):
-    A,color=G
+import  sys
+print(sys.executable)
