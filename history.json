@@ -5,42 +5,106 @@
   },
   {
     "role": "user",
-    "content": "你好"
+    "content": "ni==="
   },
   {
     "role": "assistant",
-    "content": "你好！有什么可以帮你的吗？"
+    "content": "你好！请问有什么可以帮你的吗？"
   },
   {
     "role": "user",
-    "content": "记一下明天开会"
+    "content": "nii"
   },
   {
     "role": "assistant",
-    "content": "[系统提示] 写入成功: notes\\明天开会.txt"
+    "content": "你好呀！看起来你在打招呼～有什么需要我帮忙的吗？比如记笔记或者查成绩都可以哦。"
   },
   {
     "role": "user",
-    "content": "查一下张三的成绩"
+    "content": "adsfas"
   },
   {
     "role": "assistant",
-    "content": "{\"tool\": \"get_grades\", \"name\": \"张三\", \"subject\": \"全部\"}"
+    "content": "看起来像是随手敲的字符～如果你有具体的事情，比如记笔记、查成绩，或者随便聊聊，都可以告诉我哦。"
   },
   {
     "role": "user",
-    "content": "查一下张三的成绩"
+    "content": "adfadfarewrf"
   },
   {
     "role": "assistant",
-    "content": "[系统提示] 查不到张三的全部成绩。"
+    "content": "哈哈，这段看起来像乱码啦～有什么正经事需要我帮忙吗？记笔记、查成绩，或者聊聊天都行。"
   },
   {
     "role": "user",
-    "content": "查一下张三的数学成绩"
+    "content": "dasfvfe"
   },
   {
     "role": "assistant",
-    "content": "[系统提示] 张三的数学成绩是：90分"
+    "content": "这串字符我猜不出意思呢～要不你直接说说想做什么？我可以帮你记笔记、查成绩，或者陪你聊天。"
+  },
+  {
+    "role": "user",
+    "content": "afadsfare"
+  },
+  {
+    "role": "assistant",
+    "content": "还是乱码哦～我先待命，等你说清楚需求。想记笔记、查成绩，或者随便聊聊，随时告诉我。"
+  },
+  {
+    "role": "user",
+    "content": "cdaffedf"
+  },
+  {
+    "role": "assistant",
+    "content": "这串字符我确实看不懂啦～要不换个方式说说你需要什么？记笔记、查成绩或聊天，我都在。"
+  },
+  {
+    "role": "user",
+    "content": "查询王五的数学成绩"
+  },
+  {
+    "role": "assistant",
+    "content": "[系统提示] 查不到王五的数学成绩。"
+  },
+  {
+    "role": "user",
+    "content": "ldasfja"
+  },
+  {
+    "role": "assistant",
+    "content": "又是乱码～需要我帮忙做点具体的事吗？比如记笔记、查成绩，或者聊聊天都可以。"
+  },
+  {
+    "role": "user",
+    "content": "对方的"
+  },
+  {
+    "role": "assistant",
+    "content": "你这条消息好像没说完呢～“对方的”后面想说什么？补充完整我才能帮你。"
+  },
+  {
+    "role": "user",
+    "content": "此型号"
+  },
+  {
+    "role": "assistant",
+    "content": "你提到“此型号”，但没说是哪个型号、想了解什么——能补充一下吗？比如是查参数、做笔记，还是别的？"
+  },
+  {
+    "role": "user",
+    "content": "成啊书法家风景区和我i夫"
+  },
+  {
+    "role": "assistant",
+    "content": "这段文字有点乱，看不太懂你想表达什么～能再清楚说一遍吗？如果是记笔记、查成绩或聊天，我都可以帮你。"
+  },
+  {
+    "role": "user",
+    "content": "捏"
+  },
+  {
+    "role": "assistant",
+    "content": "就一个“捏”字，是想说什么呢？可以再补充一下～"
   }
 ]
