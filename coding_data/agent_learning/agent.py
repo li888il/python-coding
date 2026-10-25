@@ -2,22 +2,14 @@ import os
 import json
 from openai import OpenAI
 
-# ================= 1. 本地工具函数 =================
-def write_note(filename, content):
-    """把 AI 提取出的内容写入 notes/ 目录，返回写入结果"""
-    os.makedirs("notes", exist_ok=True)        # 目录不存在就建，存在不报错
-    safe_name = os.path.basename(filename)      # 只取文件名，挡住 ../ 越界
-    path = os.path.join("notes", safe_name)
-    with open(path, "w", encoding="utf-8") as f:
-        f.write(content)
-    return f"写入成功: {path}"
+
 # ================= 1. 本地工具函数 =================
 
 def write_note(filename, content):
     """把 AI 提取出的内容写入 notes/ 目录，返回写入结果"""
-    os.makedirs("notes", exist_ok=True)
+    os.makedirs("../../notes", exist_ok=True)
     safe_name = os.path.basename(filename)
-    path = os.path.join("notes", safe_name)
+    path = os.path.join("../../notes", safe_name)
     with open(path, "w", encoding="utf-8") as f:
         f.write(content)
     return f"写入成功: {path}"
@@ -36,7 +28,7 @@ def get_grades(name, subject):
         return f"查不到{name}的{subject}成绩。"
 # 👆 到这里结束 👆
 def clear_history():
-    with open("history.json", "r", encoding="utf-8") as f:
+    with open("history.json", "w", encoding="utf-8") as f:
         json.dump([],f)
     return "历史记录已清空"
 # 👇 然后是注册表 👇
@@ -149,10 +141,10 @@ class Agent:
 
                     final_answer = f"[系统提示] {result}"
                 except KeyError as e:
-                    self.history.pop()
-                    print(f"[网络异常]: {e}")
-                    # 大模型漏传参数的错误恢复
-                    result = f"工具执行失败：大模型漏掉了必要的参数 {e}"
+                    # 【反馈型·不抹】请求已发、user 有效，不 pop；
+                    # 只把失败原因留给 D 步写成 assistant，给模型下轮修正的依据
+                    print(f"[工具参数缺失]: {e}")
+                    final_answer = f"工具执行失败：大模型漏掉了必要的参数 {e}"
 
         except json.JSONDecodeError:
             final_answer = ai_reply
