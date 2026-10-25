@@ -110,14 +110,19 @@ class Agent:
         print("========================")
 
         # B. 调模型
-        response = self.client.chat.completions.create(
-            model="deepseek-chat",
-            messages=messages_to_send,  # 👈 注意：这里改成了 messages_to_send
-            stream=False
-        )
-        ai_reply = response.choices[0].message.content
-        # 后面的路由和存盘逻辑保持你原来的不变...
-
+        try:
+            response = self.client.chat.completions.create(
+                model="deepseek-chat",
+                messages=messages_to_send,
+                stream=False
+            )
+            ai_reply = response.choices[0].message.content
+        except Exception as e:
+            # 网络断了的错误恢复
+            final_answer = "抱歉，网络连接失败，请再说一遍。"
+            self.history.pop()
+            print(f"[网络异常]: {e}")
+            return final_answer
         # C. 路由：JSON 工具指令 or 普通聊天
         text = ai_reply.strip()                 # 去首尾空白，防解析失败
         try:
@@ -129,19 +134,26 @@ class Agent:
             # 2. 如果这个工具在我们的注册表里
             if tool_name in TOOLS:
                 func = TOOLS[tool_name]
+                try:
 
-                if tool_name == "write_note":
-                    result = func(data["filename"], data["content"])
-                elif tool_name == "get_grades":
-                    result = func(data["name"], data["subject"])
-                elif tool_name == "clear_history":
-                    result = func()  # 不需要传任何参数
+                    if tool_name == "write_note":
+                        result = func(data["filename"], data["content"])
+                    elif tool_name == "get_grades":
+                        result = func(data["name"], data["subject"])
+                    elif tool_name == "clear_history":
+                        result = func()  # 不需要传任何参数
 
-                    # 【核心坑位】：立刻清空内存里的 self.history，只保留 system！
-                    # 否则走到最后一步 D 存盘时，又把这个对话存进去了
-                    self.history = [{"role": "system", "content": self.system_prompt}]
+                        # 【核心坑位】：立刻清空内存里的 self.history，只保留 system！
+                        # 否则走到最后一步 D 存盘时，又把这个对话存进去了
+                        self.history = [{"role": "system", "content": self.system_prompt}]
 
-                final_answer = f"[系统提示] {result}"
+                    final_answer = f"[系统提示] {result}"
+                except KeyError as e:
+                    self.history.pop()
+                    print(f"[网络异常]: {e}")
+                    # 大模型漏传参数的错误恢复
+                    result = f"工具执行失败：大模型漏掉了必要的参数 {e}"
+
         except json.JSONDecodeError:
             final_answer = ai_reply
         # D. 回复入历史 + 落盘
